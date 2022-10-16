@@ -1,0 +1,16 @@
+"""Write pyspark code to split the words """
+
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col,split,explode
+from pyspark.sql.types import StructType,StructField,StringType,IntegerType
+
+sc=SparkSession.builder.master("local").appName("myTest").getOrCreate()
+Input_data =[(1,"a,b,c"),(2,"x,y,z")]
+schema = StructType([
+    StructField("id", IntegerType(), True),
+    StructField("values", StringType(), True)])
+inputdf=sc.createDataFrame(Input_data,schema)
+
+newdf=inputdf.withColumn("new_val",explode(split(inputdf["values"],",")))
+
+print(newdf["id","new_val"].show())
