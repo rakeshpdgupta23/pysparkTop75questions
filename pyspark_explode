@@ -34,3 +34,20 @@ newdf=inputdf.withColumn("new_val",explode(split(inputdf["values"],",")))
 print(newdf["id","new_val"].show())
 
 
+
+
+#Q2
+"""Write pyspark code to calculate salary difference of employees"""
+Input_emp_sal_data=[("emp1",2011,8),("Rakesh",2014,10),("emp1",2016,15),("emp1",2022,95),("emp2",2013,3),("emp2",2018,9),("emp2",2020,18),("emp2",2022,35)]
+
+schema=StructType([
+    StructField("name",StringType(),True),
+    StructField("year",IntegerType(),True),
+    StructField("sal",IntegerType(),True)])
+new_emp_df=sc.createDataFrame(Input_emp_sal_data,schema)
+
+windowsSpec=Window.partitionBy("name").orderBy("year")
+
+new_emp_df=new_emp_df.withColumn("SalDiff",col("sal")-coalesce(lag("sal").over(windowsSpec),"sal"))
+
+print(new_emp_df.show())
