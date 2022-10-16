@@ -38,7 +38,7 @@ print(newdf["id","new_val"].show())
 
 #Q2
 """Write pyspark code to calculate salary difference of employees"""
-Input_emp_sal_data=[("emp1",2011,8),("Rakesh",2014,10),("emp1",2016,15),("emp1",2022,95),("emp2",2013,3),("emp2",2018,9),("emp2",2020,18),("emp2",2022,35)]
+Input_emp_sal_data=[("emp1",2011,8),("emp1",2014,10),("emp1",2016,15),("emp1",2022,95),("emp2",2013,3),("emp2",2018,9),("emp2",2020,18),("emp2",2022,35)]
 
 schema=StructType([
     StructField("name",StringType(),True),
